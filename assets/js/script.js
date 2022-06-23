@@ -35,19 +35,23 @@ function pwOptions() {
     // assigning the variables as properties for users choice
     var usersChoice = {
         pwLength: pwLength, 
-        hasUpper: hasUpper,
-        hasLower: hasLower,
-        hasNumeric: hasNumeric,
-        hasSymbols: hasSymbols,
+        arrayOfArrays: []
     }
+
+    if(hasUpper) usersChoice.arrayOfArrays.push(upperCase);
+    if(hasLower) usersChoice.arrayOfArrays.push(lowerCase);
+    if(hasNumeric) usersChoice.arrayOfArrays.push(numbers);
+    if(hasSymbols) usersChoice.arrayOfArrays.push(symbols);
+
     return usersChoice;
 }
 // use math.random to get random array index
 function randomNum(arr) {
-    var randomIndex = Math.floor(Math.random() * arr.length);
+    var randomIndex = Math.floor(Math.random() * arr.length); // 0 - 2
     var pwRandom = arr[randomIndex];
     return pwRandom; 
 }
+
 function generatePassword() {
     // variable to hold user choices
     // variable to hold results in empty array
@@ -60,6 +64,21 @@ function generatePassword() {
     // do the above for both possible characters and confirmed characters
     /* at the end going to have to return all the results using 
     .join */
+
+    var usersChoice = pwOptions();
+
+    console.log(usersChoice);
+
+    var password = "";
+
+    for(var i = 0; i < usersChoice.pwLength; i++) {
+        var randomArr = randomNum(usersChoice.arrayOfArrays);
+        var randomValue = randomNum(randomArr);
+        password = password + randomValue;
+    }
+
+    return password;
+
 }
 
 
